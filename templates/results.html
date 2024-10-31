@@ -16,5 +16,7 @@
 {% else %}
 <p>You haven't taken any quizzes yet.</p>
 {% endif %}
+<p>Correct Answers: {{ correct_count }}</p>
+<p>Total Questions: {{ total_questions }}</p>
 <a href="{{ url_for('quiz') }}">Take another quiz</a>
 {% endblock %}

@@ -5,6 +5,7 @@ from models import User, QuizResult
 import requests
 import random
 from html import unescape
+from datetime import datetime
 
 @app.route('/')
 @app.route('/index')
@@ -98,7 +99,28 @@ def quiz_completed():
 def results():
     correct_count = session.get('correct_count', 0)
     total_questions = len(session.get('questions', []))
-    return render_template('results.html', correct_count=correct_count, total_questions=total_questions)
+    return render_template('results.html', results=session.get('results', []), correct_count=correct_count, total_questions=total_questions)
+
+@app.route('/submit_quiz', methods=['POST'])
+@login_required
+def submit_quiz():
+    score = calculate_score()  
+    timestamp = datetime.now()  
+    result = {
+        'score': score,
+        'timestamp': timestamp
+    }
+    if 'results' not in session:
+        session['results'] = []
+    session['results'].append(result)
+
+    return redirect(url_for('results'))
+
+@app.route('/users')
+@login_required
+def users():
+    users = User.query.all()  # Fetch all registered users from the database
+    return render_template('users.html', users=users)
 
 def fetch_questions():
     try:
