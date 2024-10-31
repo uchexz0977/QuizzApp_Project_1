@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block content %}
+<h1>Quiz Results</h1>
+{% if results %}
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Score</th>
+  </tr>
+  {% for result in results %}
+  <tr>
+    <td>{{ result.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+    <td>{{ result.score }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>You haven't taken any quizzes yet.</p>
+{% endif %}
+<a href="{{ url_for('quiz') }}">Take another quiz</a>
+{% endblock %}

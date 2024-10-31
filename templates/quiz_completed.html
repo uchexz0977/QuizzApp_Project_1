@@ -1,0 +1,9 @@
+{% extends 'base.html' %} {% block title %} Quiz Completed {% endblock %} {%
+block content %}
+<h1>Quiz Completed</h1>
+<p>
+  You answered <strong>{{ correct_count }}</strong> out of
+  <strong>{{ total_questions }}</strong> questions correctly!
+</p>
+<a href="{{ url_for('quiz') }}">Take another quiz</a>
+{% endblock %}
